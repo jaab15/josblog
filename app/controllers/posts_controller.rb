@@ -3,7 +3,8 @@ class PostsController < ApplicationController
   def index
       pagine
   end
-
+  def forgitexo
+  end
   def new
       @post = Post.new
   end
