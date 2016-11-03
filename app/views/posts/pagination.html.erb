@@ -1,0 +1,9 @@
+<h1>List of Posts</h1>
+
+<%#= link_to 'Create a new Post', new_post_path %><br><br>
+
+<% if @nbrPage > 1 %>
+<%=  render 'search_box' %>
+<% end %><br>
+
+<%= render 'index_page' %>

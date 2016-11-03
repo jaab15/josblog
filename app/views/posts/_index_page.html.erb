@@ -1,0 +1,32 @@
+<table cellpadding=10 cellspacing=0 border=0>
+  <tr>
+    <th>title</th>
+
+    <th></th>
+    <th id="act1">action</th>
+
+  </tr>
+
+  <% if @nbrReq == nil || @nbrReq == 0 %>
+        <% @nbrPage = 0 %>
+        <p>There is any posts in the database </p>
+  <% else %>
+     <% @posts.each do |post| %>
+       <tr>
+         <td> <%= link_to post.title, post_path(post)%></td>
+         <div>
+           <td id="but2"><%= link_to 'Delete', post_path(post),
+                         method: "delete", :confirm => "Really?"%></td>
+        </div>
+       </tr>
+     <% end %>
+  <% end %>
+</table><br>
+
+<% if @nbrPage > 1 %>
+<%    for i in 1..@nbrPage do %>
+<%=       link_to "#{i}", pagination_path({page: "#{i}"}) %>
+<%    end %>
+<% else %>
+<%        pagination_path({page: 1) %>
+<% end %>

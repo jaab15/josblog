@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Josblog</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+      <%= link_to 'Home', root_path %>
+      <%= link_to 'About', about_path %>
+      <%= link_to 'New Post', new_post_path %>
+      <%= link_to 'All', posts_path %>
+      <%#= link_to 'New User', about_path %>
+      <%#= link_to 'Sign In', about_path %>
+
+
+
+      <%= yield %>
+  </body>
+</html>

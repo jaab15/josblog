@@ -1,0 +1,27 @@
+<h2>Show post </h2>
+
+<h1> <%= @post.title %></h1>
+<p>  <%= @post.body %></p>
+
+<%= link_to 'edit', edit_post_path(@post) %>
+<%= link_to 'delete', post_path(@post),
+    method: :delete,
+    data: {confirm: 'Are you sure?'}%><br>
+<hr><hr>
+<%= link_to 'create comment', new_post_comment_path(@post) %>
+
+<h2>Show Comments</h2>
+<% if @post.comments.count == 0 %>
+      <h3><%="There is no comments for this Post" %></h3>
+<% else %>
+<%    @post.comments.each do |comment| %>
+  <%= comment.body %><br>
+
+  <%= link_to 'edit', edit_post_comment_path(@post,comment.id)%>
+  <%= link_to 'delete', post_comment_path(@post,comment.id),
+               method: :delete ,
+               :confirm => "Really?" %>
+
+  <hr>
+<%    end %>
+<% end %>
