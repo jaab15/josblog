@@ -4,6 +4,11 @@
 <%= @post.errors.full_messages.join(',') %>
 
 <div>
+  <%= p.label :category %>
+  <%= p.collection_select :category_id, Category.all, :id, :title %>
+</div>
+
+<div>
   <%= p.label :title %>
   <%= p.text_field :title %>
 </div>

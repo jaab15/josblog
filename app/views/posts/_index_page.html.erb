@@ -25,8 +25,17 @@
 
 <% if @nbrPage > 1 %>
 <%    for i in 1..@nbrPage do %>
-<%=       link_to "#{i}", pagination_path({page: "#{i}"}) %>
+<%        if  params[:query] != nil && params[:query] != ""  %>
+<%            session[:query] = params[:query]  %>
+<%=           link_to "#{i}", search_path({page: "#{i}"}) %>
+<%        else %>
+<%=           link_to "#{i}", posts_path({page: "#{i}"}) %>
+<%        end %>
 <%    end %>
 <% else %>
-<%        pagination_path({page: 1) %>
+<%    if  params[:query] != nil && params[:query] != ""  %>
+<%        search_path({page: 1}) %>
+<%    else %>
+<%        posts_path({page: 1}) %>
+<%    end %>
 <% end %>

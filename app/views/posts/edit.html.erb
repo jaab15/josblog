@@ -1,7 +1,12 @@
-h1>Edit post</h1>
+<h1>Edit post</h1>
 
 <%=form_for @post do |p| %>
 <%= @post.errors.full_messages.join(',') %>
+
+<div>
+  <%= p.label :category %>
+  <%= p.collection_select :category_id, Category.all, :id, :title %>
+</div>
 
 <div>
   <%= p.label :title %>

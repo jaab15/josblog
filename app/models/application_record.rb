@@ -1,7 +1,7 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
-  
-  NBR_LINE = 7
+
+  NBR_LINE = 10
 
 
   def self.calculate_nbr_req(query)

@@ -1,0 +1,52 @@
+<h1>Update User Name</h1>
+
+<% if @user.errors.any? %>
+  <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_for @user do |f| %>
+  <div>
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+  </div>
+  <div>
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+  </div>
+  <div>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+  <%= f.submit %>
+
+<% end%>
+
+
+<h1>Update Password</h1>
+
+<%= form_for @user do |f| %>
+
+  <div>
+    <%= f.label "current password" %>
+    <%= f.password_field :old_password %>
+  </div>
+
+  <div>
+    <%= f.label "new password" %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div>
+    <%= f.label "new password confirmation" %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <%= f.submit %>
+
+
+<% end %>

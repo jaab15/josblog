@@ -4,8 +4,10 @@ Rails.application.routes.draw do
 
   get  '/'        => 'home#index'
   get  '/about'   => 'home#about'
-  get  '/posts/page/:page'     => 'posts#pagination', as: :pagination
+  # get  '/posts/page/:page'     => 'posts#pagination', as: :pagination
   get  '/posts/search/:page'   => 'posts#search', as: :search
+
+  resources :users, only: [:new, :create, :edit, :update]
 
   resources :posts  do
        resources :comments
@@ -13,5 +15,9 @@ Rails.application.routes.draw do
 
   resources :categories
   resources :contacts
+
+  resources :sessions, only: [:new, :create] do
+         delete :destroy, on: :collection
+    end
 
 end

@@ -1,10 +1,26 @@
 class PostsController < ApplicationController
 
   def index
-      pagine
+      @nbrReq = Post.count
+      calc_HowManyPages
+
+      @pageoff = (params[:page].to_i - 1) * NBR_LINE
+      @posts = Post.all.limit(NBR_LINE).offset(@pageoff)
   end
+
+  def search
+      params[:query] ||= session[:query]
+      @nbrReq = Post.calculate_nbr_req(params[:query])
+      calc_HowManyPages
+
+      @pageoff ||= (params[:page].to_i - 1) * NBR_LINE
+      @posts ||= Post.search_pag(params[:query], @pageoff)
+  end
+
+
   def forgitexo
   end
+
   def new
       @post = Post.new
   end
@@ -16,21 +32,6 @@ class PostsController < ApplicationController
   def edit
       # require_post
       @post = Post.find params[:id]
-  end
-
-  def pagination
-      pagine
-  end
-
-  def search
-      @nbrReq = Post.calculate_nbr_req(params[:query])
-      calc_HowManyPages
-      if params[:page].to_i == 0
-         params[:page] = 1
-      end
-
-      @pageoff = (params[:page].to_i - 1) * NBR_LINE
-      @posts = Post.search_pag(params[:query], @pageoff)
   end
 
   def create
@@ -65,26 +66,18 @@ class PostsController < ApplicationController
 
   private
   def post_params
-      params.require(:post).permit(:title, :body)
+      params.require(:post).permit(:title, :body, :category_id)
   end
 
   def require_post
       @post_params = params.require(:post).permit(
                                                  :title,
-                                                 :body
+                                                 :body,
+                                                 :category_id
                                                  )
   end
 
   def pagine
-      @nbrReq = Post.count
-      calc_HowManyPages
-
-      if params[:page].to_i == 0
-         params[:page] = 1
-      end
-
-      @pageoff = (params[:page].to_i - 1) * NBR_LINE
-      @posts = Post.all.limit(NBR_LINE).offset(@pageoff)
   end
 
   def calc_HowManyPages
@@ -93,6 +86,10 @@ class PostsController < ApplicationController
          if @nbrReq % NBR_LINE > 0
             @nbrPage = @nbrPage + 1
          end
+      end
+
+      if params[:page].to_i == 0
+         params[:page] = 1
       end
   end
 
