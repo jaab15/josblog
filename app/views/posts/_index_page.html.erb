@@ -24,12 +24,22 @@
 </table><br>
 
 <% if @nbrPage > 1 %>
+<%=    params[:page] %>
+
 <%    for i in 1..@nbrPage do %>
 <%        if  params[:query] != nil && params[:query] != ""  %>
 <%            session[:query] = params[:query]  %>
-<%=           link_to "#{i}", search_path({page: "#{i}"}) %>
+<%            if params[:page].to_i != i.to_i  %>
+<%=              link_to "#{i}", search_path({page: "#{i}"}) %> &nbsp
+<%            else %>
+<%=              params[i] %> &nbsp
+<%            end %>
 <%        else %>
-<%=           link_to "#{i}", posts_path({page: "#{i}"}) %>
+<%            if params[:page].to_i != i.to_i  %>
+<%=              link_to "#{i}", posts_path({page: "#{i}"}) %> &nbsp
+<%            else %>
+<%=              params[i] %> &nbsp
+<%            end %>
 <%        end %>
 <%    end %>
 <% else %>
