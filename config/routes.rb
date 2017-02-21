@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get  '/posts/search/:page'   => 'posts#search', as: :search
 
   resources :users, only: [:new, :create, :edit, :update]
+  resources :favourites, only: [:create, :destroy]
 
   resources :posts  do
        resources :comments
@@ -18,6 +19,6 @@ Rails.application.routes.draw do
 
   resources :sessions, only: [:new, :create] do
          delete :destroy, on: :collection
-    end
+  end
 
 end

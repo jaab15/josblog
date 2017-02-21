@@ -1,7 +1,10 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user, except: [:index, :show]
+  before_action :authorize_access, only: [:edit, :update, :destroy]
 
   def index
       @nbrReq = Post.count
+      @user = User.all
       calc_HowManyPages
 
       @pageoff = (params[:page].to_i - 1) * NBR_LINE
@@ -11,6 +14,7 @@ class PostsController < ApplicationController
   def search
       params[:query] ||= session[:query]
       @nbrReq = Post.calculate_nbr_req(params[:query])
+      @user = User.all
       calc_HowManyPages
 
       @pageoff ||= (params[:page].to_i - 1) * NBR_LINE
@@ -77,9 +81,6 @@ class PostsController < ApplicationController
                                                  )
   end
 
-  def pagine
-  end
-
   def calc_HowManyPages
       if @nbrReq != nil && @nbrReq != 0
          @nbrPage = (@nbrReq / NBR_LINE).ceil
@@ -90,6 +91,12 @@ class PostsController < ApplicationController
 
       if params[:page].to_i == 0
          params[:page] = 1
+      end
+  end
+
+  def authorize_access
+      unless can? :manage, @post
+        redirect_to root_path, alert: 'access denied'
       end
   end
 

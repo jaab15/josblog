@@ -1,10 +1,6 @@
 <table cellpadding=10 cellspacing=0 border=0>
   <tr>
     <th>title</th>
-
-    <th></th>
-    <th id="act1">action</th>
-
   </tr>
 
   <% if @nbrReq == nil || @nbrReq == 0 %>
@@ -13,32 +9,29 @@
   <% else %>
      <% @posts.each do |post| %>
        <tr>
-         <td> <%= link_to post.title, post_path(post)%></td>
-         <div>
-           <td id="but2"><%= link_to 'Delete', post_path(post),
-                         method: "delete", :confirm => "Really?"%></td>
-        </div>
+         <td> <%= link_to post.title, post_path(post)%>
+                  <span><%= "  by #{post.user.first_name}
+                                  #{post.user.last_name}" %></span></td>
        </tr>
      <% end %>
   <% end %>
 </table><br>
 
 <% if @nbrPage > 1 %>
-<%=    params[:page] %>
-
+<%#= byebug%>
 <%    for i in 1..@nbrPage do %>
 <%        if  params[:query] != nil && params[:query] != ""  %>
 <%            session[:query] = params[:query]  %>
-<%            if params[:page].to_i != i.to_i  %>
+<%            if params[:page] != i  %>
 <%=              link_to "#{i}", search_path({page: "#{i}"}) %> &nbsp
 <%            else %>
-<%=              params[i] %> &nbsp
+<%=              params[:page] %> &nbsp
 <%            end %>
 <%        else %>
-<%            if params[:page].to_i != i.to_i  %>
+<%            if params[:page] != i  %>
 <%=              link_to "#{i}", posts_path({page: "#{i}"}) %> &nbsp
 <%            else %>
-<%=              params[i] %> &nbsp
+<%=              params[:page] %> &nbsp
 <%            end %>
 <%        end %>
 <%    end %>

@@ -1,6 +1,7 @@
 class User < ApplicationRecord
-  has_many :post, dependent: :destroy
-
+  has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  
   validates :email, presence: true ,
                     uniqueness: true ,
               format:  /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i

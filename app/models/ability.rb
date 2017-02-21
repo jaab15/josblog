@@ -30,36 +30,28 @@ class Ability
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
     user ||= User.new # guest user (not logged in)
 
-    can :manage, Product do |p|
+    can :manage, Post do |p|
       p.user == user
     end
 
-    can :manage, Review do |r|
-      r.user == user
+    can :manage, Comment do |c|
+      c.user == user
     end
 
-    cannot :like, Product do |p|
+    can :admin, Post do |p|
+      user.admin == true
+    end
+
+    can :admin, Comment do |c|
+      user.admin == true
+    end
+
+    cannot :like, Post do |p|
       p.user == user
     end
 
-    can :like, Product do |p|
+    can :like, Post do |p|
         user != p.user
-    end
-
-    can :delete, Product do |p|
-      p.user == user || p.user == user
-    end
-
-    cannot :delete, Product do |p|
-      p.user != user || p.user != user
-    end
-
-    cannot :create, Product do |p|
-         p.user == user
-    end
-
-    can :create, Product do |p|
-        p.user != user
     end
 
   end

@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_signed_in?
-    session[:user_id].present?
+    session[:user_icd].present?
   end
   helper_method :user_signed_in?
 
@@ -18,5 +18,5 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by_id session[:user_id] if user_signed_in?
   end
   helper_method :current_user
-  
+
 end

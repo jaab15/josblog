@@ -25,44 +25,44 @@ User.destroy_all
                    email: "lolo@lolo.com",
                    password_digest: "lolo"
                  })
-                 
+
 puts Cowsay.say("Generate 3 users","random")
 
 
-# Category.destroy_all
-#
-# Electronic = Category.create!(title: "Electronic")
-# Books      = Category.create!(title: "Books")
-# Games      = Category.create!(title: "Games")
-# Furnitures = Category.create!(title: "Furnitures")
-# Minerals   = Category.create!(title: "Minerals")
-# Pets       = Category.create!(title: "Pets")
-# Astronomy  = Category.create!(title: "Astronomy")
-# Watches    = Category.create!(title: "Watches")
-# Music      = Category.create!(title: "Music")
-# HiFi       = Category.create!(title: "HiFi")
-#
-# puts Cowsay.say("Generate 10 categories","random")
-#
-#
-# Post.destroy_all
-#
-# 100.times do
-#   Post.create ({   title:    Faker::Address.city,
-#                    body:     Faker::ChuckNorris.fact,
-#                    category: Category.all.sample
-#                  })
-# end
-# puts Cowsay.say("Generate 100 posts","random")
-#
-#
-#
-# Comment.destroy_all
-#
-# 400.times do
-#   Comment.create ({ body:    Faker::Address.city,
-#                     # post_id: Post.find_by_sql("SELECT id FROM posts ORDER BY RANDOM() LIMIT 1"),
-#                     post: Post.all.sample
-#                  })
-# end
-# puts Cowsay.say("Generate 400 comments","random")
+Category.destroy_all
+
+Electronic = Category.create!(title: "Electronic")
+Books      = Category.create!(title: "Books")
+Games      = Category.create!(title: "Games")
+Furnitures = Category.create!(title: "Furnitures")
+Minerals   = Category.create!(title: "Minerals")
+Pets       = Category.create!(title: "Pets")
+Astronomy  = Category.create!(title: "Astronomy")
+Watches    = Category.create!(title: "Watches")
+Music      = Category.create!(title: "Music")
+HiFi       = Category.create!(title: "HiFi")
+
+puts Cowsay.say("Generate 10 categories","random")
+
+
+Post.destroy_all
+
+100.times do
+  Post.create ({   title:    Faker::Address.city,
+                   body:     Faker::ChuckNorris.fact,
+                   category: Category.all.sample,
+                   user:     User.all.sample
+                 })
+end
+puts Cowsay.say("Generate 100 posts","random")
+
+
+Comment.destroy_all
+
+400.times do
+  Comment.create ({ body:    Faker::Address.city,
+                    post:    Post.all.sample,
+                    user:    User.all.sample
+                 })
+end
+puts Cowsay.say("Generate 400 comments","random")
